@@ -36,6 +36,7 @@ export default class ProjectItem extends Component {
         return `${hours}:${minutes}`;
     }
 
+    shouldRerender() {return false;}
 
     render() {
         // let project = store.state.projects[this.projectId];
@@ -70,7 +71,7 @@ export default class ProjectItem extends Component {
         div.dataset.id = this.project.projectId;
 
 
-        this.element.prepend(div);
+        this.element.appendChild(div);
 
 
 

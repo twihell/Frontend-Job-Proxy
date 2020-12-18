@@ -1,13 +1,13 @@
 export default {
     getProjects(state, payload) {
         let projects = payload.projects;
-        
+
         state.totalCount = payload.count;
         for (let i = 0; i < projects.length; i++) {
 
             let project = projects[i];
             let jobsList = [];
-            
+
             let projectId = project.id;
             let projectDescription = project.description;
             let projectDate = project.submitdate;
@@ -24,7 +24,9 @@ export default {
 
             }
 
-
+            if (state.projects.includes(project)) {
+                return;
+            }
 
             state.projects.push({
                 projectId,
@@ -37,9 +39,10 @@ export default {
                 jobsList,
                 jobLink
             });
-            
+
 
         }
+       
         return state;
     },
 

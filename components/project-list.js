@@ -5,6 +5,7 @@ import ProjectItem from './project-item.js';
 
 const currentTime = new Date() / 1000;
 const pageSize = 10;
+let isBusy = false;
 const GENERAL_URL = `https://www.freelancer.com/api/projects/0.1/projects/active?full_description=true&limit=10&project_types[]=fixed&query=frontend&languages[]=en&job_details=true&to_time=${currentTime}`;
 const HEADER = { 'freelancer-oauth-v1': 'XLeKZUitt7wVQKNtfdltpyc7sOxNYp' };
 
@@ -15,11 +16,11 @@ export default class ProjectList extends Component {
             store,
             element: document.querySelector('.results-list')
         });
-
+        this.offset = 0;
     }
 
-    getProjects() {
-        let request = fetch(GENERAL_URL, { headers: HEADER });
+    getProjects(offset) {
+        let request = fetch(`${GENERAL_URL}&offset=${offset}`, { headers: HEADER });
 
         request.then(response => response.json())
             .then(data => {
@@ -31,52 +32,70 @@ export default class ProjectList extends Component {
 
 
 
-    // loadMore() {
+    loadMore() {
+        
+        if (this.offset <= store.state.totalCount) {
+            this.offset += pageSize;
+            this.getProjects(this.offset);
+        }
 
-    //     for (let offset = 0; offset + pageSize < store.state.totalCount; offset += 10) {
-    //         if (this.element.scrollTop + this.element.clientHeight >= this.element.scrollHeight) {
-    //             this.getProjects(offset);
-    //         }
+    }
 
-    //     }
-
-
-    // }
-
+    checkPageHeight () {
+        let scrollTop = document.documentElement.scrollTop;
+        let clientHeight = document.documentElement.clientHeight;
+        let scrollHeight = document.documentElement.scrollHeight;
+        if (scrollTop + clientHeight >= scrollHeight - 100) {
+            if (!isBusy) {
+    
+                isBusy = true;
+                this.loadMore();
+    
+                // console.log('limit line achieved');
+    
+            }
+            
+        }
+        
+    }
 
 
     render() {
-        let projectsArray = Object.keys(store.state.projects);
+        let projectsArray = store.state.projects;
         let projectDivElements = this.element.childNodes;
+        let domElementIdSet = new Set();
+        let projectIdSet = new Set();
 
         if (projectsArray.length === 0) {
             this.getProjects();
             return;
         }
 
+        for (let i = 0; i < projectsArray.length; i++) {
+            projectIdSet.add(projectsArray[i].projectId);
+        };
 
-        //Loop through the items and generate a list of elements
+        for (let j = 0; j < projectDivElements.length; j++) {
+            domElementIdSet.add(+projectDivElements[j].getAttribute('data-id'));
+        };
 
+        let differenceSet = new Set([...projectIdSet].filter(id => !domElementIdSet.has(+id)));
 
-        for (let item of projectsArray) {
-            
-          
-            // if (projectDivElements.length > 0) {
-            //     console.log(projectDivElements[i]);
-            // }
-            
-            new ProjectItem(store.state.projects[item]).render();
-            // console.log(store.state.projects[`${item}`]);
+        for (let i = 0; i < projectsArray.length; i++) {
+
+            if (differenceSet.has(Number(projectsArray[i].projectId))) {
+                
+                new ProjectItem(projectsArray[i]).render();
+            }
 
         }
 
+       isBusy = false;
+        
+
     }
-
-
 
     // for (let itemId of projectsArray) {
     //     new ProjectItem(itemId).render()
     // }
-
-
 };
