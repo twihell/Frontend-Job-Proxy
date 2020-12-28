@@ -15,10 +15,22 @@ body {
     color: #141414;
 }
 
-header, section {
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+header {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+section {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
 }
 
 .header__heading, .header__subheading {
@@ -44,7 +56,7 @@ header, section {
 }
 
 .jobs-search__input:focus {
-    color: #000000;
+    color: white;
 }
 
 .jobs-search__button {
@@ -60,7 +72,6 @@ header, section {
 }
 
 .results-list {
-    width: 60%;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -68,12 +79,10 @@ header, section {
 }
 
 .results-list__item {
-    width: 100%;
     background: #25245a;
     border-radius: 5px;
     padding: 15px;
     margin: 10px;
-    
 }
 
 .row h2, p, .tag-block {
@@ -101,13 +110,11 @@ header, section {
     text-decoration: none;
     color: #25245a;
     background: rgb(141, 174, 247);
-    border: 1px solid  rgb(141, 174, 247);
+    border: 1px solid rgb(141, 174, 247);
     border-radius: 5px;
     text-align: center;
     padding: 3px;
-
 }
-
 
 .row {
     display: flex;
@@ -129,4 +136,129 @@ header, section {
     flex-direction: column;
     flex: 1;
     justify-content: space-between;
+}
+
+.filter-wrapper {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    /* position: relative; */
+}
+
+.filter-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 20px;
+    background-color: #25245a;
+    border-radius: 5px;
+    color: white;
+}
+
+.filter-list {
+    list-style-type: none;
+    padding: 15px;
+    margin: 10px;
+}
+
+.filter-item-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+#slider-range.ui-slider .ui-slider-handle {
+    width: .8em;
+    height: 1em;
+    top: -.5em;
+    background-color: #25245a;
+    border: 2px solid #c5c5c5;
+}
+
+#slider-range.ui-slider .ui-slider-handle:hover {
+    background-color: rgb(221, 96, 12);
+    border: 2px solid #c5c5c5;
+}
+
+#slider-range.ui-slider {
+    width: 90%;
+    height: .2em;
+    margin: auto;
+}
+
+.price__range-value {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.filter-tag {
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.checkbox-item {
+    position: relative;
+    margin-bottom: 3px;
+}
+
+input[type=checkbox] {
+    visibility: hidden;
+}
+
+.geekmark {
+    position: absolute;
+    height: 13px;
+    width: 13px;
+    background-color: white;
+    top: 0;
+    left: 0;
+    margin: 3px 3px 3px 4px;
+}
+
+label {
+    margin-left: 2px;
+}
+
+.checkbox-item:hover input~.geekmark {
+    background-color: rgb(221, 96, 12);
+}
+
+/* .stack-item:active input~.geekmark {
+    background-color: rgb(221, 96, 12);
+} */
+
+.checkbox-item input:checked~.geekmark {
+    background-color: rgb(221, 96, 12);
+}
+
+.geekmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+input:checked~.geekmark:after {
+    display: block;
+}
+
+.checkbox-item .geekmark:after {
+    left: 3px;
+    bottom: 2px;
+    width: 4px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background-color: rgb(221, 96, 12);
+}
+
+.filter-item-group:last-child {
+    margin-bottom: 0;
+    color:rgb(221, 96, 12);
+    font-weight: bold;
+    cursor: pointer;
 }

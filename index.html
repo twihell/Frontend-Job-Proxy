@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/jquery-ui-1.12.1.custom/jquery-ui.css">
     <title>Frontend Job Proxy</title>
 </head>
 
@@ -14,18 +14,127 @@
         <h1 class="header__heading">Frontend Project Offers</h1>
         <h2 class="header__subheading">from freelancer.com</h2>
     </header>
-    <section class="jobs-wrapper">
-        <div class="jobs-search">
+    <main>
+        <aside class="filter-wrapper">
+            <form class="filter-content">
+                <ul class="filter-list">
+                    <li class="filter-item-group">
+                        <p class="filter-tag">Price</p>
+                        <div id="slider-range"></div>
+
+                        <div class="price__range-value">
+                            <span class="price__min-value"></span>
+                            -
+                            <span class="price__max-value"></span>
+                        </div>
+                        </div>
+                    </li>
+                    <li class="filter-item-group">
+                        <p class="filter-tag">Stack</p>
+                        <div class="checkbox-item">
+                            <input checked type="checkbox" id="JavaScript" name="JavaScript"><span
+                                class="geekmark"></span><label for="JavaScript">JavaScript</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="CSS" name="CSS"><span class="geekmark"></span><label
+                                for="CSS">CSS</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="HTML" name="HTML"><span class="geekmark"></span><label
+                                for="HTML">HTML</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="React" name="React"><span class="geekmark"></span><label
+                                for="React">React.js</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="Vue" name="Vue"><span class="geekmark"></span><label
+                                for="Vue">Vue.js</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="Angular" name="Angular"><span class="geekmark"></span><label
+                                for="Angular">AngularJS</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="Bootstrap" name="Bootstrap"><span class="geekmark"></span><label
+                                for="Bootstrap">Bootstrap</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="jQuery" name="jQuery"><span class="geekmark"></span><label
+                                for="jQuery">jQuery</label>
+                        </div>
+
+
+                    </li>
+                    <li class="filter-item-group">
+                        <p class="filter-tag">Period</p>
+                        <div class="checkbox-item">
+                            <input checked type="checkbox" id="today" name="today"><span class="geekmark"></span><label
+                                for="today">Today</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input checked type="checkbox" id="three-days" name="three-days"><span
+                                class="geekmark"></span><label for="three-days">3 days</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input checked type="checkbox" id="week" name="week"><span class="geekmark"></span><label
+                                for="week">Week</label>
+                        </div>
+                    </li>
+                    <li class="filter-item-group reset-filter-wrapper">
+                        <button class="reset-filter" type="reset">Reset Filter</button>
+                    </li>
+                </ul>
+            </form>
+        </aside>
+        <section class="jobs-wrapper">
+            <!-- <div class="jobs-search">
             <input type="text" class="jobs-search__input" placeholder="Enter a keyword, price, etc...">
             <button class="jobs-search__button"><i class="fa fa-search"></i></button>
-        </div>
+        </div> -->
 
-        
-        <div class="results-list"></div> 
-    
 
-    </section>
+            <div class="results-list"></div>
+
+
+        </section>
+    </main>
+
     <script type="module" src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"
+        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <script src="lib/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script>
+        $('.geekmark').on("click", event => {
+            let checkboxArea = $(event.target).siblings().get(0);
+            checkboxArea.checked = !checkboxArea.checked
+        });
+
+
+        $(function () {
+            $("#slider-range").slider({
+                range: true,
+                step: 1,
+                min: 1,
+                max: 5000,
+                values: [1, 5000],
+                slide: function (event, ui) {
+                    $(".price__min-value").val("$" + ui.values[0]);
+                    $(".price__max-value").val("$" + ui.value[1]);
+
+                }
+            });
+
+            $("#slider-range").on("slide", function (event, ui) {
+                $(".price__min-value").html("$" + ui.values[0]);
+                $(".price__max-value").html("$" + ui.values[1]);
+            });
+
+            $(".price__min-value").html("$" + $("#slider-range").slider("values", 0));
+            $(".price__max-value").html("$" + $("#slider-range").slider("values", 1));
+
+        });
+    </script>
 </body>
 
 </html>
