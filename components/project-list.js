@@ -1,13 +1,14 @@
 import Component from '../lib/component.js';
 import store from '../store/index.js';
 import ProjectItem from './project-item.js';
+import {FREELANCER_API_KEY} from '../config.js'
 
 
 const currentTime = new Date() / 1000;
 const pageSize = 10;
 let isBusy = false;
 const GENERAL_URL = `https://www.freelancer.com/api/projects/0.1/projects/active?full_description=true&limit=10&project_types[]=fixed&query=frontend&languages[]=en&job_details=true&to_time=${currentTime}`;
-const HEADER = { 'freelancer-oauth-v1': 'XLeKZUitt7wVQKNtfdltpyc7sOxNYp' };
+const HEADER = { 'freelancer-oauth-v1': FREELANCER_API_KEY };
 
 export default class ProjectList extends Component {
 
@@ -33,7 +34,7 @@ export default class ProjectList extends Component {
 
 
     loadMore() {
-        
+
         if (this.offset <= store.state.totalCount) {
             this.offset += pageSize;
             this.getProjects(this.offset);
@@ -47,16 +48,16 @@ export default class ProjectList extends Component {
         let scrollHeight = document.documentElement.scrollHeight;
         if (scrollTop + clientHeight >= scrollHeight - 100) {
             if (!isBusy) {
-    
+
                 isBusy = true;
                 this.loadMore();
-    
+
                 // console.log('limit line achieved');
-    
+
             }
-            
+
         }
-        
+
     }
 
 
@@ -84,14 +85,14 @@ export default class ProjectList extends Component {
         for (let i = 0; i < projectsArray.length; i++) {
 
             if (differenceSet.has(Number(projectsArray[i].projectId))) {
-                
+
                 new ProjectItem(projectsArray[i]).render();
             }
 
         }
 
        isBusy = false;
-        
+
 
     }
 
