@@ -4,9 +4,7 @@ import ProjectItem from './project-item.js';
 
 
 const currentTime = new Date() / 1000;
-const pageSize = 10;
-let isBusy = false;
-const GENERAL_URL = `https://www.freelancer.com/api/projects/0.1/projects/active?full_description=true&limit=10&project_types[]=fixed&query=frontend&languages[]=en&job_details=true&to_time=${currentTime}`;
+const GENERAL_URL = `https://www.freelancer.com/api/projects/0.1/projects/active?full_description=true&project_types[]=fixed&query=frontend&languages[]=en&job_details=true&to_time=${currentTime}`;
 const HEADER = { 'freelancer-oauth-v1': 'XLeKZUitt7wVQKNtfdltpyc7sOxNYp' };
 
 export default class ProjectList extends Component {
@@ -16,11 +14,10 @@ export default class ProjectList extends Component {
             store,
             element: document.querySelector('.results-list')
         });
-        this.offset = 0;
     }
 
-    getProjects(offset) {
-        let request = fetch(`${GENERAL_URL}&offset=${offset}`, { headers: HEADER });
+    getProjects() {
+        let request = fetch(GENERAL_URL, { headers: HEADER });
 
         request.then(response => response.json())
             .then(data => {
@@ -28,35 +25,6 @@ export default class ProjectList extends Component {
             })
             .catch(err => console.log("Ошибка HTTP: ", err));
 
-    }
-
-
-
-    loadMore() {
-        
-        if (this.offset <= store.state.totalCount) {
-            this.offset += pageSize;
-            this.getProjects(this.offset);
-        }
-
-    }
-
-    checkPageHeight () {
-        let scrollTop = document.documentElement.scrollTop;
-        let clientHeight = document.documentElement.clientHeight;
-        let scrollHeight = document.documentElement.scrollHeight;
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-            if (!isBusy) {
-    
-                isBusy = true;
-                this.loadMore();
-    
-                // console.log('limit line achieved');
-    
-            }
-            
-        }
-        
     }
 
 
@@ -89,9 +57,6 @@ export default class ProjectList extends Component {
             }
 
         }
-
-       isBusy = false;
-        
 
     }
 

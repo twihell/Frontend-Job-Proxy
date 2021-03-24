@@ -114,6 +114,13 @@ section {
     border-radius: 5px;
     text-align: center;
     padding: 3px;
+    top: 0;
+    transition: top 0.1s ease-out;
+    position: relative;
+}
+
+.learn-more-link:active {
+    top: 1.5px;
 }
 
 .row {
@@ -142,7 +149,6 @@ section {
     width: 20%;
     display: flex;
     flex-direction: column;
-    /* position: relative; */
 }
 
 .filter-content {
@@ -173,6 +179,7 @@ section {
     top: -.5em;
     background-color: #25245a;
     border: 2px solid #c5c5c5;
+    outline: none;
 }
 
 #slider-range.ui-slider .ui-slider-handle:hover {
@@ -225,10 +232,6 @@ label {
     background-color: rgb(221, 96, 12);
 }
 
-/* .stack-item:active input~.geekmark {
-    background-color: rgb(221, 96, 12);
-} */
-
 .checkbox-item input:checked~.geekmark {
     background-color: rgb(221, 96, 12);
 }
@@ -256,9 +259,87 @@ input:checked~.geekmark:after {
     background-color: rgb(221, 96, 12);
 }
 
-.filter-item-group:last-child {
-    margin-bottom: 0;
-    color:rgb(221, 96, 12);
+.filter-item-group.reset-filter-wrapper {
+    margin-bottom: 0px;
+    color: rgb(221, 96, 12);
     font-weight: bold;
     cursor: pointer;
+}
+
+#resetBtn {
+    border: 1px solid rgb(221, 96, 12);
+    border-radius: 5px;
+    background-color: rgb(221, 96, 12);
+    color: white;
+    font-weight: bold;
+    padding: 3px;
+    outline: none;
+    letter-spacing: 1px;
+    top: 0px;
+    transition: top 0.1s ease-in-out;
+    position: relative;
+}
+
+#resetBtn:hover {
+    cursor: pointer;
+}
+
+#resetBtn:active {
+    top: 1.5px;
+}
+
+.radio-item {
+    position: relative;
+    margin-bottom: 3px;
+    
+}
+
+input[type=radio] {
+    visibility: hidden;
+}
+
+.radio-geekmark {
+    position: absolute;
+    overflow: hidden;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background-color: white;
+    top: 0;
+    left: 0;
+    margin: 3px 3px 3px 4px;
+}
+
+.radio-geekmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    
+}
+
+
+
+.radio-item:hover input~.radio-geekmark {
+    background-color: rgb(221, 96, 12);
+}
+
+.radio-item input[type=radio]:checked~.radio-geekmark {
+    background-color: rgb(221, 96, 12);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    
+}
+
+input[type=radio]:checked~.radio-geekmark:after {
+    display: flex;
+}
+
+.radio-item .radio-geekmark:after {
+    left: 2.8px;
+    width: 1px;
+    height: 1px;
+    border: solid 3px white;
+    border-radius: 50%;
+    background-color: white;
 }

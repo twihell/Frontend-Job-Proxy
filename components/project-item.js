@@ -17,6 +17,14 @@ export default class ProjectItem extends Component {
         let month = currentDate.getMonth() + 1;
         let day = currentDate.getDate();
 
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+
         return `${day}.${month}.${year}`;
     }
 

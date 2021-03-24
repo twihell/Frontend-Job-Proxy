@@ -1,23 +1,13 @@
 
 import ProjectList from './components/project-list.js';
+import FilterBox from './components/filter-box.js';
 
+const filterForm = document.querySelector(".filter-wrapper");
 const newProjectList = new ProjectList();
-const resetFilterButton = document.querySelector('.reset-filter');
-const filterBox = document.querySelector('.filter-content');
+const newFilterBox = new FilterBox();
 
 
 
 newProjectList.render();
+newFilterBox.render();
 
-
-
-window.addEventListener("scroll", () => {
-    newProjectList.checkPageHeight();
-});
-
-
-
-resetFilterButton.addEventListener("click", () => {
-    console.log('clicked');
-    filterBox.reset();
-})
