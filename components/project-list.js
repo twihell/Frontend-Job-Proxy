@@ -5,20 +5,10 @@ import {FREELANCER_API_KEY} from '../config.js'
 
 
 const currentTime = new Date() / 1000;
-<<<<<<< HEAD
-const GENERAL_URL = `https://www.freelancer.com/api/projects/0.1/projects/active?full_description=true&project_types[]=fixed&query=frontend&languages[]=en&job_details=true&to_time=${currentTime}`;
-const HEADER = { 'freelancer-oauth-v1': 'XLeKZUitt7wVQKNtfdltpyc7sOxNYp' };
-||||||| merged common ancestors
-const pageSize = 10;
-let isBusy = false;
-const GENERAL_URL = `https://www.freelancer.com/api/projects/0.1/projects/active?full_description=true&limit=10&project_types[]=fixed&query=frontend&languages[]=en&job_details=true&to_time=${currentTime}`;
-const HEADER = { 'freelancer-oauth-v1': 'XLeKZUitt7wVQKNtfdltpyc7sOxNYp' };
-=======
 const pageSize = 10;
 let isBusy = false;
 const GENERAL_URL = `https://www.freelancer.com/api/projects/0.1/projects/active?full_description=true&limit=10&project_types[]=fixed&query=frontend&languages[]=en&job_details=true&to_time=${currentTime}`;
 const HEADER = { 'freelancer-oauth-v1': FREELANCER_API_KEY };
->>>>>>> 7b54294845c62a3335ca029c3726de1a8a59f3ac
 
 export default class ProjectList extends Component {
 
@@ -41,38 +31,6 @@ export default class ProjectList extends Component {
     }
 
 
-<<<<<<< HEAD
-||||||| merged common ancestors
-
-    loadMore() {
-        
-        if (this.offset <= store.state.totalCount) {
-            this.offset += pageSize;
-            this.getProjects(this.offset);
-        }
-
-    }
-
-    checkPageHeight () {
-        let scrollTop = document.documentElement.scrollTop;
-        let clientHeight = document.documentElement.clientHeight;
-        let scrollHeight = document.documentElement.scrollHeight;
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-            if (!isBusy) {
-    
-                isBusy = true;
-                this.loadMore();
-    
-                // console.log('limit line achieved');
-    
-            }
-            
-        }
-        
-    }
-
-
-=======
 
     loadMore() {
 
@@ -102,7 +60,6 @@ export default class ProjectList extends Component {
     }
 
 
->>>>>>> 7b54294845c62a3335ca029c3726de1a8a59f3ac
     render() {
         let projectsArray = store.state.projects;
         let projectDivElements = this.element.childNodes;
@@ -133,16 +90,9 @@ export default class ProjectList extends Component {
 
         }
 
-<<<<<<< HEAD
-||||||| merged common ancestors
-       isBusy = false;
-        
-
-=======
        isBusy = false;
 
 
->>>>>>> 7b54294845c62a3335ca029c3726de1a8a59f3ac
     }
 
     // for (let itemId of projectsArray) {
